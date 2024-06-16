@@ -6,4 +6,4 @@ $1: %.c
 	$(CC) $(CFLAGS) -o $@ $(LDLIBS)
 
 clean:
-	find . -executable -delete
+	find . -type f -executable -delete

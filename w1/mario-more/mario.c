@@ -31,6 +31,6 @@ int main(void)
     printf(" ");
     print_row(i, "#");
 
-    if (i < h) printf("\n");
+    printf("\n");
   }
 }

@@ -1,13 +1,11 @@
 # include <stdio.h>
 # include <cs50.h>
 
-void bricks_x(int n, string chr, bool break_line)
+void bricks_x(int n, string chr)
 {
   for (int i = 0; i < n; i++) {
     printf("%s", chr);
   }
-
-  if (break_line) printf("\n");
 }
 
 void bricks_y(int n, string chr)
@@ -22,7 +20,7 @@ void bricks(int x, int y, string chr)
 {
   for (int i = 0; i < y; i++)
   {
-    bricks_x(x, chr, true);
+    bricks_x(x, chr);
   }
 }
 
@@ -45,12 +43,10 @@ int main()
   int n = get_size();
   int i = 1;
 
-  bool brk = true;
-
   while (i <= n) {
-    bricks_x(n-i, " ", false);
-    if (i >= n) brk = false;
-    bricks_x(i, "#", brk);
+    bricks_x(n-i, " ");
+    bricks_x(i, "#");
+    printf("\n");
 
     i++;
   }

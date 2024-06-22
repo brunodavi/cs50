@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+c=clang
+flags='-ferror-limit=1 -gdwarf-4 -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-gnu-folding-constant -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wshadow'
+libs='-lcrypt -lcs50 -lm'
+
+set -e
+
+# Check if a file name was provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 file.c"
+  exit 1
+fi
+
+# Get the base name of the file (without the .c extension)
+base=build/$(basename "$1" .c)
+
+mkdir -p build
+
+# Check if the .c file exists
+if [ ! -f "$1" ]; then
+  echo "File $1 does not exist"
+  exit 1
+fi
+
+# Check if the .o file exists and is older than the .c file
+if [ ! -f "$base.o" ] || [ "$1" -nt "$base.o" ]; then
+  echo -e "Compiling $1...\n"
+  ${c} ${flags} ${1} -o ${base}.o ${libs}
+
+  # Check if the compilation was successful
+  if [ $? -eq 0 ]; then
+    # Set the modification time of the .o file to match the .c file
+    touch -r "$1" "$base.o"
+  else
+    echo "Compilation failed"
+    exit 1
+  fi
+fi
+
+# Run the compiled binary
+./"$base.o"

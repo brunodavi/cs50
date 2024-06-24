@@ -39,4 +39,4 @@ if [ ! -f "$base.o" ] || [ "$1" -nt "$base.o" ]; then
 fi
 
 # Run the compiled binary
-./"$base.o"
+./"$base.o" ${@:2}

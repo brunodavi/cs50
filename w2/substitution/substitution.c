@@ -22,7 +22,7 @@ void init_cipher(string key, char cipher[])
   }
 }
 
-string encrypt(string text, char cipher[])
+void encrypt(string text, char cipher[])
 {
   for (int i = 0; i < strlen(text); i++) {
     char chr = text[i];
@@ -38,8 +38,6 @@ string encrypt(string text, char cipher[])
       );
     }
   }
-
-  return text;
 }
 
 int main(int argc, string argv[])
@@ -57,7 +55,7 @@ int main(int argc, string argv[])
   init_cipher(key, cipher);
 
   string text = get_string("plaintext: ");
-  string ciphertext = encrypt(text, cipher);
+  encrypt(text, cipher);
 
   printf("ciphertext: %s\n", text);
   return 0;

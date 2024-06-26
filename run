@@ -13,7 +13,7 @@ if [ -z "$1" ]; then
 fi
 
 # Get the base name of the file (without the .c extension)
-base=build/$(basename "$1" .c)
+base="build/$(basename "$1" .c).o"
 
 mkdir -p build
 
@@ -24,19 +24,10 @@ if [ ! -f "$1" ]; then
 fi
 
 # Check if the .o file exists and is older than the .c file
-if [ ! -f "$base.o" ] || [ "$1" -nt "$base.o" ]; then
-  echo -e "Compiling $1...\n"
-  ${c} ${flags} ${1} -o ${base}.o ${libs}
-
-  # Check if the compilation was successful
-  if [ $? -eq 0 ]; then
-    # Set the modification time of the .o file to match the .c file
-    touch -r "$1" "$base.o"
-  else
-    echo "Compilation failed"
-    exit 1
-  fi
+if [ ! -f "$base" ] || [ "$1" -nt "$base" ]; then
+  echo -e "Compiling $1..."
+  ${c} ${flags} ${1} -o ${base} ${libs}
 fi
 
 # Run the compiled binary
-./"$base.o" ${@:2}
+./"$base" ${@:2}

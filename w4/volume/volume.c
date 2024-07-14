@@ -1,9 +1,9 @@
-#include <cs50.h>
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 
-int HEADER_SIZE = 44;
+const int HEADER_SIZE = 44;
 
 
 int usage(int exit)
@@ -19,7 +19,7 @@ int file_error()
 }
 
 
-int main(int argc, string argv[])
+int main(int argc, char *argv[])
 {
   if (argc != 4)
     return usage(1);

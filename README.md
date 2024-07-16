@@ -6,8 +6,8 @@ Harvard College Computer Science Course
 
 - [x] Week 0 - Scratch
 - [x] Week 1 - C
-- [ ] Week 2 - Arrays
-- [ ] Week 3 - Algorithms
+- [x] Week 2 - Arrays
+- [x] Week 3 - Algorithms
 - [ ] Week 4 - Memory
 - [ ] Week 5 - Data Structures
 - [ ] Week 6 - Python

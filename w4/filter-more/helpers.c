@@ -97,8 +97,86 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     }
 }
 
+double sobel(double x, double y) {
+  double result = round(
+    sqrt(
+      (
+        (x * x)
+        +
+        (y * y)
+      )
+    )
+  );
+
+  if (result > 255)
+    result = 255;
+  else if (result < 0)
+    result = 0;
+
+  return result;
+}
+
 // Detect edges
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
-    return;
+  int gx[3][3] = {
+    { -1, 0, 1 },
+    { -2, 0, 2 },
+    { -1, 0, 1 },
+  }; 
+
+  int gy[3][3] = {
+    { -1, -2, -1 },
+    {  0,  0,  0 },
+    {  1,  2,  1 },
+  }; 
+
+  RGBTRIPLE copy[height][width];
+
+  for (int h = 0; h < height; h++)
+    for (int w = 0; w < width; w++)
+      copy[h][w] = image[h][w];
+
+  for (int h = 0; h < height; h++)
+    for (int w = 0; w < width; w++)
+    {
+      double xr = 0.0;
+      double xg = 0.0;
+      double xb = 0.0;
+
+      double yr = 0.0;
+      double yg = 0.0;
+      double yb = 0.0;
+
+      for (int bh = h-1, gh = 0; bh <= h+1; bh++, gh++)
+        for (int bw = w-1, gw = 0; bw <= w+1; bw++, gw++)
+        {
+          if (
+            bh >= 0 &&
+            bw >= 0 &&
+
+            bh <= height &&
+            bw <= width
+          ) {
+            int x = gx[gh][gw];
+            int y = gy[gh][gw];
+
+            xr += copy[bh][bw].rgbtRed * x;
+            xg += copy[bh][bw].rgbtGreen * x;
+            xb += copy[bh][bw].rgbtBlue * x;
+
+            yr += copy[bh][bw].rgbtRed * y;
+            yg += copy[bh][bw].rgbtGreen * y;
+            yb += copy[bh][bw].rgbtBlue * y;
+          }
+        }
+
+      double r = sobel(xr, yr);
+      double g = sobel(xg, yg);
+      double b = sobel(xb, yb);
+
+      image[h][w].rgbtRed = r;
+      image[h][w].rgbtGreen = g;
+      image[h][w].rgbtBlue = b;
+    }
 }

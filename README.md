@@ -4,7 +4,7 @@ Harvard - Computer Science Course
 
 > Demonstration only, do not use as a copy
 
-In this project I show and present my solutions
+In this project I show my solutions
 in solving the exercises
 
 [Official Site](https://cs50.harvard.edu/x/2024)

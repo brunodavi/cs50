@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-
 
 int BLOCK_SIZE = 512;
 
@@ -50,18 +48,44 @@ int main(int argc, char *argv[])
   FILE *card = fopen(argv[1], "r");
   BYTE buffer[BLOCK_SIZE];
 
-  int img = 0;
+  int img_number = 0;
   FILE *image;
   char name[7];
 
+  int creating = 0;
+
   while(fread(buffer, 1, BLOCK_SIZE, card) > 0)
   {
-    for (int i = 0; i < BLOCK_SIZE; i += 2)
+    for (int i = 0; i < BLOCK_SIZE; i++)
     {
-      if (buffer[i+3] == 0x0)
-        printf("fall: %i\n", i+3);
 
-      buffer[i+3] = 2;
+      BYTE bytes[3] = {
+        buffer[i],
+        buffer[i + 1],
+        buffer[i + 2],
+      };
+
+      BYTE byte_write[1] = { buffer[i] };
+
+      switch (check_border(bytes)) {
+        case -1:
+          creating = 1;
+          create_name(name, img_number);
+          image = fopen(name, "w");
+          img_number++;
+
+        case 0:
+          if (creating == 1)
+            fwrite(byte_write, 1, 1, image);
+          break;
+
+        case 1:
+          creating = 0;
+          fwrite(bytes, 3, 1, image);
+          i += 2;
+          fclose(image);
+          break;
+      }
     }
   }
 

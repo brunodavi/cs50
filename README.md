@@ -1,8 +1,15 @@
 # CS50 Exercicies (2024)
 
-Harvard College Computer Science Course
+Harvard - Computer Science Course
+
+> Demonstration only, do not use as a copy
+
+In this project I show and present my solutions
+in solving the exercises
 
 [Official Site](https://cs50.harvard.edu/x/2024)
+
+## My Track
 
 - [x] Week 0 - Scratch
 - [x] Week 1 - C

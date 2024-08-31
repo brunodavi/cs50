@@ -1,4 +1,6 @@
+#include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 
 void bubble_sort(int arr[])
 {
@@ -48,5 +50,25 @@ void runHOFs()
 
 int main()
 {
-  runHOFs();
+  char word[5];
+
+  int count = 0;
+  int limit = 3;
+
+  strcpy(word, "\'\'z");
+  int word_len = strlen(word);
+
+  if (word_len > limit) word_len = limit;
+
+  for (int i = 0; i < word_len; i++) {
+    char chr = word[i];
+    if (chr == '\'')
+      count += 'A' - '\'' + 1;
+    else
+      count += 1 + toupper(chr) - 'A';
+  }
+
+  int rest = (word_len - 1) * 25;
+
+  printf("%i\n", count + rest);
 }

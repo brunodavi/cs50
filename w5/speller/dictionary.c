@@ -132,16 +132,32 @@ unsigned int size(void)
 // Unloads dictionary from memory, returning true if successful, else false
 bool unload(void)
 {
-    node *current_node;
+    int count = 0;
 
-    for (int i = 0; i < LENGTH; i++) {
-        current_node = table[i];
+    for (int i = 0; i < N; i++) {
+        node *current_node = table[i];
 
         while (current_node != NULL) {
-            free(current_node->word);
+            node *prev_node = current_node;
             current_node = current_node->next;
+
+            if (prev_node != NULL) {
+                memset(
+                    prev_node->word,
+                    '\0',
+                    sizeof(prev_node->word)
+                );
+
+                free(prev_node);
+                prev_node = NULL;
+            }
+
+            count++;
         }
+
     }
 
-    return true;
+    if (words == count) return true;
+
+    return false;
 }

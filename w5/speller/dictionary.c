@@ -1,7 +1,5 @@
 // Implements a dictionary's functionality
 
-#include <cstddef>
-#include <cstdio>
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
@@ -44,7 +42,7 @@ bool check(const char *word)
     node *current_node = table[index_hash];
 
     while (current_node != NULL) {
-        if (strcasecmp(current_node->word, word)) {
+        if (strcasecmp(current_node->word, word) == 0) {
             return true;
         }
         current_node = current_node->next;
@@ -84,11 +82,8 @@ bool load(const char *dictionary)
 
     char word[LENGTH + 1];
 
-    while (fgets(word, sizeof(word), source))
+    while (fscanf(source, "%s", word) == 1)
     {
-        // Remove \n
-        word[strcspn(word, "\n")] = '\0';
-
         // Update counter
         words++;
 
@@ -103,10 +98,24 @@ bool load(const char *dictionary)
                 return false;
             }
 
-            new_node->next = create_node(NULL);
             table[index_hash] = new_node;
             continue;
         }
+
+        node *prev_node;
+
+        while (current_node != NULL) {
+            prev_node = current_node;
+            current_node = current_node->next;
+        }
+
+        node *new_node = create_node(word);
+        if (new_node == NULL) {
+            fclose(source);
+            return false;
+        }
+
+        prev_node->next = new_node;
     }
     
     fclose(source);

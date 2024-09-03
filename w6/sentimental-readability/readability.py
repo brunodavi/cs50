@@ -7,11 +7,7 @@ def print_grade(text: str):
     letters = len(re.findall(r"[A-Za-z]", text))
     words = text.count(' ') + 1
     sentences = sum(
-        [
-            text.count('.'),
-            text.count('!'),
-            text.count('?'),
-        ]
+        (text.count(char) for char in '.!?')
     )
 
     L = (letters / words) * 100

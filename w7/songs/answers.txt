@@ -1,0 +1,2 @@
+To determine the musical aura with the top 100 songs.db at 2018, the user averages the energy, danceability and valence
+It would use the average of the most listened to songs by the user and unavailable information, which would be their own emotion

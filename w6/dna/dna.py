@@ -16,13 +16,11 @@ def main():
     with open(database_csv) as file_csv:
         database = [*csv.DictReader(file_csv)]
 
-    
     # TODO: Read DNA sequence file into a variable
     sequence = ''
 
     with open(sequence_txt) as file_txt:
         sequence = file_txt.read()
-
 
     # TODO: Find longest match of each STR in DNA sequence
     [_, *subsequence_list] = database[0].keys()
@@ -74,11 +72,11 @@ def longest_match(sequence, subsequence):
             # If there is a match in the substring
             if sequence[start:end] == subsequence:
                 count += 1
-            
+
             # If there is no match in the substring
             else:
                 break
-        
+
         # Update most consecutive matches found
         longest_run = max(longest_run, count)
 

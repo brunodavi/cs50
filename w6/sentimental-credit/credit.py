@@ -16,7 +16,7 @@ def identify_card(card_number: str):
 
     two_nunbers = int(card_number[:2])
     card_size = len(card_number)
-    
+
     if two_nunbers in [34, 37] and card_size == 15:
         return "AMEX"
     elif 40 <= two_nunbers <= 49 and card_size in [13, 16]:
@@ -52,7 +52,8 @@ def is_valid(card_number: str):
         digit = int(digit)
         digit *= 2
 
-        if (digit > 9): digit -= 9
+        if (digit > 9):
+            digit -= 9
 
         return digit
 
@@ -73,7 +74,7 @@ def get_string(prompt: str):
     return value
 
 
-def main(card_number = None):
+def main(card_number=None):
     """
     Program to validate credit cards
 
@@ -116,11 +117,11 @@ def main(card_number = None):
         card_number = get_string("Number: ")
 
     card_type = identify_card(card_number)
-    
+
     if (identify_card(card_number) is None
-        or
-        not is_valid(card_number)
-    ):
+            or
+            not is_valid(card_number)
+            ):
         print("INVALID")
     else:
         print(card_type)

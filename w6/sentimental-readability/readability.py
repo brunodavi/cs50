@@ -16,11 +16,11 @@ def print_grade(text: str):
     grade = round(0.0588 * L - 0.296 * S - 15.8)
 
     if grade < 1:
-        print("Before Grade 1");
+        print("Before Grade 1")
     elif 1 <= grade <= 16:
-        print(f"Grade {grade}");
+        print(f"Grade {grade}")
     elif grade > 16:
-        print("Grade 16+");
+        print("Grade 16+")
 
 
 def main():

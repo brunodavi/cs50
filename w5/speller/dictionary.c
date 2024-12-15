@@ -1,10 +1,11 @@
 // Implements a dictionary's functionality
 
-#include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 
 #include "dictionary.h"
 
@@ -23,9 +24,11 @@ node *table[N];
 
 int words = 0;
 
-node *create_node(char *word) {
+node *create_node(char *word)
+{
     node *new_node = malloc(sizeof(node));
-    if (new_node == NULL) return NULL;
+    if (new_node == NULL)
+        return NULL;
 
     if (word != NULL)
         strcpy(new_node->word, word);
@@ -41,8 +44,10 @@ bool check(const char *word)
     int index_hash = hash(word);
     node *current_node = table[index_hash];
 
-    while (current_node != NULL) {
-        if (strcasecmp(current_node->word, word) == 0) {
+    while (current_node != NULL)
+    {
+        if (strcasecmp(current_node->word, word) == 0)
+        {
             return true;
         }
         current_node = current_node->next;
@@ -54,22 +59,24 @@ bool check(const char *word)
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
-  int count = 0;
-  int limit = 3;
+    int count = 0;
+    int limit = 3;
 
-  int word_len = strlen(word);
+    int word_len = strlen(word);
 
-  if (word_len > limit) word_len = limit;
+    if (word_len > limit)
+        word_len = limit;
 
-  for (int i = 0; i < word_len; i++) {
-    char chr = word[i];
-    if (chr == '\'')
-      count += 'A' - '\'' + 1;
-    else
-      count += 1 + toupper(chr) - 'A';
-  }
+    for (int i = 0; i < word_len; i++)
+    {
+        char chr = word[i];
+        if (chr == '\'')
+            count += 'A' - '\'' + 1;
+        else
+            count += 1 + toupper(chr) - 'A';
+    }
 
-  int rest = (word_len - 1) * 25;
+    int rest = (word_len - 1) * 25;
 
     return count + rest;
 }
@@ -78,7 +85,8 @@ unsigned int hash(const char *word)
 bool load(const char *dictionary)
 {
     FILE *source = fopen(dictionary, "r");
-    if (source == NULL) return false;
+    if (source == NULL)
+        return false;
 
     char word[LENGTH + 1];
 
@@ -91,9 +99,11 @@ bool load(const char *dictionary)
         int index_hash = hash(word);
         node *current_node = table[index_hash];
 
-        if (current_node == NULL) {
+        if (current_node == NULL)
+        {
             node *new_node = create_node(word);
-            if (new_node == NULL) {
+            if (new_node == NULL)
+            {
                 fclose(source);
                 return false;
             }
@@ -104,20 +114,22 @@ bool load(const char *dictionary)
 
         node *prev_node;
 
-        while (current_node != NULL) {
+        while (current_node != NULL)
+        {
             prev_node = current_node;
             current_node = current_node->next;
         }
 
         node *new_node = create_node(word);
-        if (new_node == NULL) {
+        if (new_node == NULL)
+        {
             fclose(source);
             return false;
         }
 
         prev_node->next = new_node;
     }
-    
+
     fclose(source);
 
     return true;
@@ -134,19 +146,18 @@ bool unload(void)
 {
     int count = 0;
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i++)
+    {
         node *current_node = table[i];
 
-        while (current_node != NULL) {
+        while (current_node != NULL)
+        {
             node *prev_node = current_node;
             current_node = current_node->next;
 
-            if (prev_node != NULL) {
-                memset(
-                    prev_node->word,
-                    '\0',
-                    sizeof(prev_node->word)
-                );
+            if (prev_node != NULL)
+            {
+                memset(prev_node->word, '\0', sizeof(prev_node->word));
 
                 free(prev_node);
                 prev_node = NULL;
@@ -154,10 +165,10 @@ bool unload(void)
 
             count++;
         }
-
     }
 
-    if (words == count) return true;
+    if (words == count)
+        return true;
 
     return false;
 }

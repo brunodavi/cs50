@@ -5,14 +5,14 @@
 #include <stdlib.h>
 #include <time.h>
 
-// $ ./inheritance                                                                                     
-// Child (Generation 0): blood type AO                                                                 
-//     Parent (Generation 1): blood type AA                                                            
-//         Grandparent (Generation 2): blood type BA                                                   
-//         Grandparent (Generation 2): blood type OA                                                   
-//     Parent (Generation 1): blood type OO                                                            
-//         Grandparent (Generation 2): blood type BO                                                   
-//         Grandparent (Generation 2): blood type OA                      
+// $ ./inheritance
+// Child (Generation 0): blood type AO
+//     Parent (Generation 1): blood type AA
+//         Grandparent (Generation 2): blood type BA
+//         Grandparent (Generation 2): blood type OA
+//     Parent (Generation 1): blood type OO
+//         Grandparent (Generation 2): blood type BO
+//         Grandparent (Generation 2): blood type OA
 
 // Each person has two parents and two alleles
 typedef struct person
@@ -86,7 +86,8 @@ person *create_family(int generations)
 void free_family(person *p)
 {
     // TODO: Handle base case
-    if (p == NULL) return;
+    if (p == NULL)
+        return;
 
     // TODO: Free parents recursively
     free_family(p->parents[0]);
@@ -114,11 +115,13 @@ void print_family(person *p, int generation)
     // Print person
     if (generation == 0)
     {
-        printf("Child (Generation %i): blood type %c%c\n", generation, p->alleles[0], p->alleles[1]);
+        printf("Child (Generation %i): blood type %c%c\n", generation, p->alleles[0],
+               p->alleles[1]);
     }
     else if (generation == 1)
     {
-        printf("Parent (Generation %i): blood type %c%c\n", generation, p->alleles[0], p->alleles[1]);
+        printf("Parent (Generation %i): blood type %c%c\n", generation, p->alleles[0],
+               p->alleles[1]);
     }
     else
     {
@@ -126,7 +129,8 @@ void print_family(person *p, int generation)
         {
             printf("Great-");
         }
-        printf("Grandparent (Generation %i): blood type %c%c\n", generation, p->alleles[0], p->alleles[1]);
+        printf("Grandparent (Generation %i): blood type %c%c\n", generation, p->alleles[0],
+               p->alleles[1]);
     }
 
     // Print parents of current generation

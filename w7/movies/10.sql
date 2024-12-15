@@ -3,10 +3,10 @@ SELECT DISTINCT
 FROM
   movies
 JOIN
-  stars ON stars.movie_id = movies.id
+  directors ON directors.movie_id = movies.id
 JOIN
-  people ON stars.person_id = people.id
+  people ON directors.person_id = people.id
 JOIN
   ratings ON ratings.movie_id = movies.id
 WHERE
-  rating = 9.0;
+  rating >= 9.0;

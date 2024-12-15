@@ -5,7 +5,8 @@ def get_float(prompt: str):
     while True:
         try:
             number = float(input(prompt))
-            if (number < 0.01): continue
+            if (number < 0.01):
+                continue
             return number
         except ValueError:
             pass

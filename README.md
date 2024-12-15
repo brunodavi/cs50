@@ -13,13 +13,13 @@ in solving the exercises
 
 - [x] Week 0 - Scratch
 - [x] Week 1 - C
-- [x] Week 2 - Arrays
-- [x] Week 3 - Algorithms
-- [x] Week 4 - Memory
-- [ ] Week 5 - Data Structures
-- [ ] Week 6.0 - Python
+- [-] Week 2 - Arrays
+- [-] Week 3 - Algorithms
+- [-] Week 4 - Memory
+- [x] Week 5 - Data Structures
+- [x] Week 6.0 - Python
 - [ ] Week 6.5 - Artificial Intelligence
-- [ ] Week 7 - SQL
+- [-] Week 7 - SQL
 - [ ] Week 8 - HTML, CSS, JavaScript
 - [ ] Week 9 - Flask
 - [ ] Week 10 - Cybersecurity

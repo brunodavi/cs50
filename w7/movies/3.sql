@@ -1,3 +1,8 @@
-select title from movies
-where year > 2018
-order by title
+SELECT
+  title
+FROM
+  movies
+WHERE
+  YEAR >= 2018
+ORDER BY
+  title
